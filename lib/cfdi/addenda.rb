@@ -1,10 +1,10 @@
-module CFDI
+module Cfdi
 
   # Un concepto del comprobante
   class Addenda
-   
+
     attr_accessor *[:nombre, :namespace, :xsd, :data]
-    
+
     def initialize data={}
       #puts self.class
       data.each do |k,v|
@@ -13,7 +13,7 @@ module CFDI
         self.send method, v
       end
     end
-    
+
   end #Addenda
-  
-end #CFDI
+
+end #Cfdi

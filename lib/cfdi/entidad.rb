@@ -1,16 +1,16 @@
-module CFDI
+module Cfdi
 
   # Una persona fiscal
   #
   # @attr rfc [String] El RFC
   # @attr nombre [String] El nombre o razón social de la entidad
-  # @attr domicilioFiscal [CFDI::Domicilio, Hash] El domicilio de esta entidad
+  # @attr domicilioFiscal [Cfdi::Domicilio, Hash] El domicilio de esta entidad
   # @attr regimenFiscal [String] El régimen fiscal, sólo de un emisor
-  # @attr expedidoEn [CFDI::Domicilio, Hash] El domicilio de la sucursal de emisión
+  # @attr expedidoEn [Cfdi::Domicilio, Hash] El domicilio de la sucursal de emisión
   class Entidad < ElementoComprobante
     # @private
     # @cadenaOriginal = [:rfc, :nombre, :domicilioFiscal, :expedidoEn, :regimenFiscal]
-    @cadenaOriginal = [:rfc, :nombre, :regimenFiscal, :usoCFDI]
+    @cadenaOriginal = [:rfc, :nombre, :regimenFiscal, :usoCfdi]
     # @private
     @data = @cadenaOriginal
     # @private
@@ -30,9 +30,9 @@ module CFDI
 
 
     # Asigna un domicilioFiscal
-    # @param  domicilio [CFDI::Domicilio, Hash] El domicilio de esta entidad
+    # @param  domicilio [Cfdi::Domicilio, Hash] El domicilio de esta entidad
     #
-    # @return [CFDI::Domicilio] idem
+    # @return [Cfdi::Domicilio] idem
     def domicilioFiscal= domicilio
       domicilio = Domicilio.new domicilio unless domicilio.is_a? Domicilio
       @domicilioFiscal = domicilio
@@ -40,9 +40,9 @@ module CFDI
     end
 
     # Designa dónde se expidió el comprobante, sólo para Entidades de tipo "Emisor"
-    # @param  domicilio [CFDI::Domicilio, Hash] El domicilio de expedición de este emisor
+    # @param  domicilio [Cfdi::Domicilio, Hash] El domicilio de expedición de este emisor
     #
-    # @return [CFDI::Domicilio] idem
+    # @return [Cfdi::Domicilio] idem
     def expedidoEn= domicilio
       return if !domicilio
       domicilio = Domicilio.new domicilio unless domicilio.is_a? Domicilio
@@ -58,13 +58,13 @@ module CFDI
       })
     end
 
-    :usoCFDI
+    :usoCfdi
 
     # @private
     def nsR
       return ({
         :Rfc => @rfc,
-        :UsoCFDI => @usoCFDI
+        :UsoCfdi => @usoCfdi
       })
     end
 

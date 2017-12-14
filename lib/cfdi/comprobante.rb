@@ -1,4 +1,4 @@
-module CFDI
+module Cfdi
   # La clase principal para crear Comprobantes
   class Comprobante
 
@@ -40,12 +40,12 @@ module CFDI
     # Crear un comprobante nuevo
     #
     # @param  data [Hash] Los datos de un comprobante
-    # @option data [String] :version ('3.2') La version del CFDI
-    # @option data [String] :fecha ('') La fecha del CFDI
+    # @option data [String] :version ('3.2') La version del Cfdi
+    # @option data [String] :fecha ('') La fecha del Cfdi
     # @option data [String] :tipoDeComprobante ('ingreso') El tipo de Comprobante
     # @option data [String] :formaDePago ('') La forma de pago (pago en una sóla exhibición?)
     # @option data [String] :condicionesDePago ('') Las condiciones de pago (Efectos fiscales al pago?)
-    # @option data [String] :TipoCambio (1) El tipo de cambio para la moneda de este CFDI'
+    # @option data [String] :TipoCambio (1) El tipo de cambio para la moneda de este Cfdi'
     # @option data [String] :moneda ('pesos') La moneda de pago
     # @option data [String] :metodoDePago ('') El método de pago (depósito bancario? efectivo?)
     # @option data [String] :lugarExpedicion ('') El lugar dónde se expide la factura (Nutopía, México?)
@@ -54,7 +54,7 @@ module CFDI
     # @param  options [Hash] Las opciones para este comprobante
     # @see [Comprobante@@options] Opciones
     #
-    # @return {CFDI::Comprobante}
+    # @return {Cfdi::Comprobante}
     def initialize (data={}, options={})
       #hack porque dup se caga con instance variables
       opts = Marshal::load(Marshal.dump(@@options))
@@ -94,10 +94,10 @@ module CFDI
     end
 
 
-    # Asigna un emisor de tipo {CFDI::Entidad}
-    # @param  emisor [Hash, CFDI::Entidad] Los datos de un emisor
+    # Asigna un emisor de tipo {Cfdi::Entidad}
+    # @param  emisor [Hash, Cfdi::Entidad] Los datos de un emisor
     #
-    # @return [CFDI::Entidad] Una entidad
+    # @return [Cfdi::Entidad] Una entidad
     def emisor= emisor
       emisor = Entidad.new emisor unless emisor.is_a? Entidad
       @emisor = emisor;
@@ -105,9 +105,9 @@ module CFDI
 
 
     # Asigna un receptor
-    # @param  receptor [Hash, CFDI::Entidad] Los datos de un receptor
+    # @param  receptor [Hash, Cfdi::Entidad] Los datos de un receptor
     #
-    # @return [CFDI::Entidad] Una entidad
+    # @return [Cfdi::Entidad] Una entidad
     def receptor= receptor
       receptor = Entidad.new receptor unless receptor.is_a? Entidad
       @receptor = receptor;
@@ -115,9 +115,9 @@ module CFDI
     end
 
     # Agrega uno o varios conceptos
-    # @param  conceptos [Array, Hash, CFDI::Concepto] Uno o varios conceptos
+    # @param  conceptos [Array, Hash, Cfdi::Concepto] Uno o varios conceptos
     #
-    # En caso dconceptose darle un Hash o un {CFDI::Concepto}, agrega este a los conceptos, de otro modo, sobreescribe los conceptos pre-existentes
+    # En caso dconceptose darle un Hash o un {Cfdi::Concepto}, agrega este a los conceptos, de otro modo, sobreescribe los conceptos pre-existentes
     #
     # @return [Array] Los conceptos de este comprobante
     def conceptos= datos
@@ -138,9 +138,9 @@ module CFDI
 
 
     # Asigna un complemento al comprobante
-    # @param  complemento [Hash, CFDI::Complemento] El complemento a agregar
+    # @param  complemento [Hash, Cfdi::Complemento] El complemento a agregar
     #
-    # @return [CFDI::Complemento]
+    # @return [Cfdi::Complemento]
     def complemento= complemento
       complemento = Complemento.new complemento unless complemento.is_a? Complemento
       @complemento = complemento
@@ -163,7 +163,7 @@ module CFDI
     # @return [String] El comprobante namespaceado en versión 3.2 (porque soy un huevón)
     def to_xml
       ns = {
-        'xmlns:cfdi' => "http://www.sat.gob.mx/cfd/3",
+        'xmlns:Cfdi' => "http://www.sat.gob.mx/cfd/3",
         'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
         # 'xsi:schemaLocation' => "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv32.xsd",
         'xsi:schemaLocation' => "http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd"
@@ -196,7 +196,7 @@ module CFDI
 
       @builder = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
         xml.Comprobante(ns) do
-          ins = xml.doc.root.add_namespace_definition('cfdi', 'http://www.sat.gob.mx/cfd/3')
+          ins = xml.doc.root.add_namespace_definition('Cfdi', 'http://www.sat.gob.mx/cfd/3')
           xml.doc.root.namespace = ins
           xml.Emisor(@emisor.nsE)
           xml.Receptor(@receptor.nsR)
@@ -285,12 +285,12 @@ module CFDI
     end
 
 
-    # La cadena original del CFDI
+    # La cadena original del Cfdi
     #
     # @return [String] Separada por pipes, because fuck you that's why
     def cadena_original
       doc = Nokogiri::XML(self.to_xml)
-      spec = Gem::Specification.find_by_name("cfdi")
+      spec = Gem::Specification.find_by_name("Cfdi")
       # xslt = Nokogiri::XSLT(File.read(spec.gem_dir + "/lib/cadenaoriginal_3_3.xslt"))
       xslt = Nokogiri::XSLT(File.read(File.dirname(__FILE__) + "/cadenaoriginal_3_3.xslt"))
 

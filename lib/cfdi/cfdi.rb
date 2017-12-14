@@ -15,7 +15,7 @@ require 'time'
 require 'base64'
 require 'nokogiri'
 
-module CFDI
+module Cfdi
   # La versión de este gem
   VERSION = '0.1.5'
 end

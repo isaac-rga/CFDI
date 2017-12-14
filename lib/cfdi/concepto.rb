@@ -1,4 +1,4 @@
-module CFDI
+module Cfdi
 
   # Un concepto del comprobante
   class Concepto < ElementoComprobante

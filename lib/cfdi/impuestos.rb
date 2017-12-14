@@ -1,4 +1,4 @@
-module CFDI
+module Cfdi
   class Impuestos < ElementoComprobante
 
     # @private

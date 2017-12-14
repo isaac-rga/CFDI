@@ -10,7 +10,7 @@ class Float
 
 end
 
-module CFDI
+module Cfdi
 
 
   # Un elemento del comprobante con métodos mágicos y especiales
@@ -20,7 +20,7 @@ module CFDI
     # Crear este elemento y settear lo que le pasemos como hash en un tipo de dato adecuado
     # @param  data [Hash] Los datos para este elemento
     #
-    # @return [CFDI::ElementoComprobante] El elemento creado
+    # @return [Cfdi::ElementoComprobante] El elemento creado
     def initialize data={}
       data.each do |k,v|
         method = "#{k}=".to_sym

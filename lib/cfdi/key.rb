@@ -1,4 +1,4 @@
-module CFDI
+module Cfdi
 
   require 'openssl'
 
@@ -13,7 +13,7 @@ module CFDI
     # @param  file [IO, String] El `path` de esta llave o los bytes de la misma
     # @param  password=nil [String, nil] El password de esta llave
     #
-    # @return [CFDI::Key] La llave privada
+    # @return [Cfdi::Key] La llave privada
     def initialize file, password=nil
       if file.is_a? String
         file = File.read(file)
@@ -23,9 +23,9 @@ module CFDI
 
     # sella una factura
     #
-    # @param factura [CFDI::Comprobante] El comprobante a sellar
+    # @param factura [Cfdi::Comprobante] El comprobante a sellar
     #
-    # @return [CFDI::comprobante] El comprobante con el `sello`
+    # @return [Cfdi::comprobante] El comprobante con el `sello`
     def sella factura
       cadena_original = factura.cadena_original
       factura.sello = Base64::encode64(self.sign(OpenSSL::Digest::SHA256.new, cadena_original)).gsub(/\n/, '')

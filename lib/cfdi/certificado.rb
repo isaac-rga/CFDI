@@ -1,4 +1,4 @@
-module CFDI
+module Cfdi
 
   require 'openssl'
 
@@ -15,7 +15,7 @@ module CFDI
     # Importar un certificado de sellado
     # @param  file [IO, String] El `path` del certificado o un objeto #IO
     #
-    # @return [CFDI::Certificado] Un certificado
+    # @return [Cfdi::Certificado] Un certificado
     def initialize (file)
 
       if file.is_a? String
@@ -36,9 +36,9 @@ module CFDI
 
 
     # Certifica una factura
-    # @param  factura [CFDI::Comprobante] El comprobante a certificar
+    # @param  factura [Cfdi::Comprobante] El comprobante a certificar
     #
-    # @return [CFDI::Comprobante] El comprobante certificado (con `#noCertificado` y `#certificado`)
+    # @return [Cfdi::Comprobante] El comprobante certificado (con `#noCertificado` y `#certificado`)
     def certifica factura
 
       factura.noCertificado = @noCertificado
