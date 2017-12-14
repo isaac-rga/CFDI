@@ -17,5 +17,7 @@ require 'nokogiri'
 
 module Cfdi
   # La versión de este gem
-  VERSION = '0.1.5'
+  def self.root
+    File.expand_path('../../..',__FILE__)
+  end
 end
